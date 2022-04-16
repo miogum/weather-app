@@ -1,0 +1,40 @@
+.container-fluid {
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+img {
+  width: 20px;
+  height: 20px;
+}
+
+.card {
+  border: none;
+}
+
+.fa-solid {
+  font-size: 30px;
+}
+
+.predictions h5 {
+  font-size: medium;
+}
+
+.predictions h6 {
+  font-size: small;
+  margin-top: 2px;
+  font-weight: 300;
+}
+
+.predictions .fa-solid {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.predictions .card {
+  border: 1px solid black;
+}
