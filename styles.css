@@ -1,44 +1,65 @@
-.container-fluid {
-  border: 2px solid black;
-  border-radius: 20px;
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-image: url("background-image.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+  position: relative;
+}
+
+.nav-left {
+  height: 50vh;
+}
+
+.nav-right {
+  height: 50vh;
+  padding-top: 20px;
+}
+
+.additional-info {
+  text-align: end;
+  list-style: none;
+  line-height: 4em;
+  font-size: larger;
+}
+
+.container-2 {
+  padding: 0 5%;
+}
+
+.container-3 {
+  padding: 0 15%;
 }
 
 h1 {
-  font-size: 3.5rem;
+  font-weight: bolder;
+  font-size: 500%;
 }
 
-img {
-  width: 20px;
-  height: 20px;
+footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 40%;
 }
 
 .card {
   border: none;
+  background: none;
 }
 
-.fa-solid {
-  font-size: 30px;
+a {
+  text-decoration: none;
+  color: white;
+  text-align: right;
 }
 
-.predictions h5 {
-  font-size: medium;
-}
-
-.predictions h6 {
-  font-size: small;
-  margin-top: 2px;
-  font-weight: 300;
-}
-
-.predictions .fa-solid {
-  font-size: 20px;
-  margin-top: 2px;
-}
-
-.predictions .card {
-  border: 1px solid black;
-}
-
-footer {
-  text-align: center;
+#fahrenheit {
+  opacity: 50%;
 }
