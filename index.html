@@ -15,6 +15,8 @@
       src="https://kit.fontawesome.com/b190e64971.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -48,13 +50,13 @@
       <div class="container-2">
         <div class="row">
           <div class="col nav-left">
-            <h1 class="city">London</h1>
-            <h4 class="date">Thursday 30th March 2022</h4>
-            <h4 class="time">14:00</h4>
-            <div class="current-temp">
-              <h1 class="current-temp">
+            <h1 id="city">London</h1>
+            <h4 id="date">Thursday 30th March 2022</h4>
+            <h4 id="time">14:00</h4>
+            <div class="temperature">
+              <h1 id="current-temp">
                 12
-                <span>
+                <span id="units">
                   <sup>
                     <a href="#" id="celcius">°C</a>
                     <a href="#" id="fahrenheit">°F</a>
@@ -63,15 +65,20 @@
               </h1>
             </div>
 
-            <h5 class="description">Scattered Clouds</h5>
+            <h5 id="description">Scattered Clouds</h5>
           </div>
 
           <div class="col nav-right">
             <ul class="additional-info">
-              <li class="feels-like">Feels Like: 10°C</li>
-              <li class="humidity">Humidity: 54%</li>
-              <li class="wind-speed">Wind Speed: 30 km/h</li>
-              <li class="chance-of-rain">Chance of Rain: 1%</li>
+              <li id="feels-like">Feels Like: 10°C</li>
+              <li id="humidity">Humidity: 54%</li>
+              <li id="wind-speed">Wind Speed: 30 km/h</li>
+              <li id="sun">
+                <ul>
+                  <li id="sunrise">Sunrise: 6:00</li>
+                  <li id="sunset">Sunset: 19:00</li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>

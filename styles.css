@@ -29,12 +29,16 @@ body {
   font-size: larger;
 }
 
+.predictions {
+  width: max-content;
+}
+
 .container-2 {
   padding: 0 5%;
 }
 
 .container-3 {
-  padding: 0 15%;
+  padding: 0 10%;
 }
 
 h1 {
@@ -62,4 +66,8 @@ a {
 
 #fahrenheit {
   opacity: 50%;
+}
+
+#sun li {
+  display: inline;
 }
