@@ -1,5 +1,4 @@
 // HTML elements that will update
-// let city = document.querySelector("#city");
 let date = document.querySelector("#date");
 let time = document.querySelector("#time");
 let temp = document.querySelector("#current-temp");
@@ -33,14 +32,7 @@ let months = [
 ];
 let weatherIcon = document.querySelector("#weather-icon");
 
-// tester city
-let city = "london";
-
-// API details
-let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-// update current time
+// update current date
 let formatDate = (timestamp) => {
   let date = new Date(timestamp);
   let day = days[date.getDay()];
@@ -98,5 +90,24 @@ let displayCurrentTempInfo = (response) => {
   time.innerHTML = formatTime();
 };
 
-// axios call
-axios.get(apiUrl).then(displayCurrentTempInfo);
+let searchLocation = (city) => {
+  // display the name of the city searched
+  let displayCity = document.querySelector("#city");
+  displayCity.innerHTML = city;
+  // API details
+  let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  // axios call
+  axios.get(apiUrl).then(displayCurrentTempInfo);
+};
+
+function getLocation(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#search-input");
+  searchLocation(searchInput.value);
+}
+
+let form = document.querySelector(".form-group");
+form.addEventListener("click", getLocation);
+
+searchLocation("Nairobi");
