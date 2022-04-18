@@ -71,3 +71,7 @@ a {
 #sun li {
   display: inline;
 }
+
+#description {
+  text-transform: capitalize;
+}
