@@ -1,5 +1,4 @@
 // HTML elements that will update
-
 // let city = document.querySelector("#city");
 let date = document.querySelector("#date");
 let time = document.querySelector("#time");
@@ -32,8 +31,11 @@ let months = [
   "Nov",
   "Dec",
 ];
+let weatherIcon = document.querySelector("#weather-icon");
 
-let city = "new york";
+// tester city
+let city = "london";
+
 // API details
 let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -88,8 +90,13 @@ let displayCurrentTempInfo = (response) => {
   humidity.innerHTML = dataInfo.main.humidity;
   windSpeed.innerHTML = dataInfo.wind.speed;
   description.innerHTML = dataInfo.weather[0].description;
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${dataInfo.weather[0].icon}@2x.png`
+  );
   date.innerHTML = formatDate(dataInfo.dt * 1000);
   time.innerHTML = formatTime();
 };
 
+// axios call
 axios.get(apiUrl).then(displayCurrentTempInfo);
