@@ -84,7 +84,7 @@ let displayCurrentTempInfo = (response) => {
   description.innerHTML = dataInfo.weather[0].description;
   weatherIcon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${dataInfo.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${dataInfo.weather[0].icon}@2x.png`
   );
   date.innerHTML = formatDate(dataInfo.dt * 1000);
   time.innerHTML = formatTime();
@@ -107,7 +107,7 @@ function getLocation(event) {
   searchLocation(searchInput.value);
 }
 
-let form = document.querySelector(".form-group");
-form.addEventListener("click", getLocation);
+let submitBtn = document.querySelector(".submit");
+submitBtn.addEventListener("click", getLocation);
 
 searchLocation("Nairobi");
