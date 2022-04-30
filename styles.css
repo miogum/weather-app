@@ -75,3 +75,8 @@ a {
 #description {
   text-transform: capitalize;
 }
+
+#units {
+  opacity: 100%;
+  font-size: 42px;
+}

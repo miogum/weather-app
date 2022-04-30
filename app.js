@@ -1,12 +1,5 @@
-// HTML elements that will update
-let date = document.querySelector("#date");
-let time = document.querySelector("#time");
-let temp = document.querySelector("#current-temp");
 let units = document.querySelector("#units");
-let feelsLike = document.querySelector("#feels-like");
-let humidity = document.querySelector("#humidity");
-let windSpeed = document.querySelector("#wind-speed");
-let description = document.querySelector("#description");
+let temp = document.querySelector("#current-temp");
 let days = [
   "Sunday",
   "Monday",
@@ -30,7 +23,8 @@ let months = [
   "Nov",
   "Dec",
 ];
-let weatherIcon = document.querySelector("#weather-icon");
+
+let celsiusTemp = null;
 
 // update current date
 let formatDate = (timestamp) => {
@@ -76,8 +70,17 @@ let formatTime = () => {
 
 // update current weather info
 let displayCurrentTempInfo = (response) => {
+  // HTML elements that will update
+
+  let weatherIcon = document.querySelector("#weather-icon");
+
+  let feelsLike = document.querySelector("#feels-like");
+  let humidity = document.querySelector("#humidity");
+  let windSpeed = document.querySelector("#wind-speed");
+  let description = document.querySelector("#description");
   let dataInfo = response.data;
-  temp.innerHTML = Math.round(dataInfo.main.temp) + units.innerHTML;
+  celsiusTemp = Math.round(dataInfo.main.temp);
+  temp.innerHTML = celsiusTemp;
   feelsLike.innerHTML = dataInfo.main.feels_like;
   humidity.innerHTML = dataInfo.main.humidity;
   windSpeed.innerHTML = dataInfo.wind.speed;
@@ -109,5 +112,22 @@ function getLocation(event) {
 
 let submitBtn = document.querySelector(".submit");
 submitBtn.addEventListener("click", getLocation);
+
+function displayF(event) {
+  event.preventDefault();
+  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
+  temp.innerHTML = Math.round(fahrenheitTemp);
+}
+
+function displayC(event) {
+  event.preventDefault();
+  temp.innerHTML = celsiusTemp;
+}
+
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click", displayF);
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click", displayC);
 
 searchLocation("Nairobi");
