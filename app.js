@@ -1,4 +1,5 @@
 let units = document.querySelector("#units");
+let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
 let temp = document.querySelector("#current-temp");
 let days = [
   "Sunday",
@@ -68,20 +69,69 @@ let formatTime = () => {
   return `${hours}:${minutes}${timeOfDay}`;
 };
 
+// update sunrise time
+function sunriseTime(timestamp) {
+  let sunriseTime = new Date(timestamp);
+  let hours = sunriseTime.getHours();
+  let minutes = sunriseTime.getMinutes();
+  let timeOfDay = "";
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (hours < 12) {
+    timeOfDay = "am";
+  } else {
+    timeOfDay = "pm";
+  }
+  return `Sunrise: ${hours}:${minutes}${timeOfDay}`;
+}
+
+// update sunset time
+function sunsetTime(timestamp) {
+  let sunsetTime = new Date(timestamp);
+  let hours = sunsetTime.getHours();
+  let minutes = sunsetTime.getMinutes();
+  let timeOfDay = "";
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (hours < 12) {
+    timeOfDay = "am";
+  } else {
+    timeOfDay = "pm";
+  }
+  return `Sunset: ${hours}:${minutes}${timeOfDay}`;
+}
+
+let getForecast = (coordinates) => {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+};
+
 // update current weather info
 let displayCurrentTempInfo = (response) => {
   // HTML elements that will update
 
   let weatherIcon = document.querySelector("#weather-icon");
-
   let feelsLike = document.querySelector("#feels-like");
   let humidity = document.querySelector("#humidity");
   let windSpeed = document.querySelector("#wind-speed");
   let description = document.querySelector("#description");
+  let sunrise = document.querySelector("#sunrise");
+  let sunset = document.querySelector("#sunset");
+
   let dataInfo = response.data;
+
   celsiusTemp = Math.round(dataInfo.main.temp);
   temp.innerHTML = celsiusTemp;
   feelsLike.innerHTML = dataInfo.main.feels_like;
+
   humidity.innerHTML = dataInfo.main.humidity;
   windSpeed.innerHTML = dataInfo.wind.speed;
   description.innerHTML = dataInfo.weather[0].description;
@@ -91,6 +141,10 @@ let displayCurrentTempInfo = (response) => {
   );
   date.innerHTML = formatDate(dataInfo.dt * 1000);
   time.innerHTML = formatTime();
+  sunrise.innerHTML = sunriseTime(dataInfo.sys.sunrise * 1000);
+  sunset.innerHTML = sunsetTime(dataInfo.sys.sunset * 1000);
+
+  getForecast(dataInfo.coord);
 };
 
 let searchLocation = (city) => {
@@ -98,7 +152,7 @@ let searchLocation = (city) => {
   let displayCity = document.querySelector("#city");
   displayCity.innerHTML = city;
   // API details
-  let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
+
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   // axios call
   axios.get(apiUrl).then(displayCurrentTempInfo);
@@ -110,9 +164,51 @@ function getLocation(event) {
   searchLocation(searchInput.value);
 }
 
-let submitBtn = document.querySelector(".submit");
-submitBtn.addEventListener("click", getLocation);
+let formatDay = (timestamp) => {
+  let date = new Date(timestamp);
+  let day = date.getDay();
 
+  return days[day];
+};
+
+// display 5 day weather forecast
+function displayForecast(response) {
+  let dailyForecast = response.data.daily;
+
+  let forecastElement = document.querySelector(".forecast");
+
+  let forecastHTML = `<div class="row text-center justify-content-center forecast">`;
+
+  dailyForecast.forEach(function (forecastDay, index) {
+    if (index < 6 && index > 0) {
+      forecastHTML += `
+    <div class="col-2">
+      <div class="card">
+       <div class="row card-body">
+          <h5 class="col-6 col-md-3 col-lg-12 card-title">${formatDay(
+            forecastDay.dt * 1000
+          )}</h5>
+          <h5 class="col-6 col-md-3 col-lg-12 card-title">${Math.round(
+            forecastDay.temp.day
+          )}°C</h5>
+          <img
+            class="forecast-img"
+            src="https://openweathermap.org/img/wn/${
+              forecastDay.weather[0].icon
+            }@2x.png"
+            alt="sun"
+          />
+        </div>
+      </div>
+    </div>`;
+    }
+  });
+
+  forecastHTML += `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+// temperature conversions
 function displayF(event) {
   event.preventDefault();
   let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
@@ -124,10 +220,16 @@ function displayC(event) {
   temp.innerHTML = celsiusTemp;
 }
 
+// display fahrenheit temperature
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", displayF);
 
+// diaplay celsius temperature
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", displayC);
+
+// cubmit and search for city
+let submitBtn = document.querySelector(".submit");
+submitBtn.addEventListener("click", getLocation);
 
 searchLocation("Nairobi");
