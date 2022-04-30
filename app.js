@@ -1,4 +1,3 @@
-let units = document.querySelector("#units");
 let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
 let temp = document.querySelector("#current-temp");
 let days = [
@@ -86,7 +85,7 @@ function sunriseTime(timestamp) {
   } else {
     timeOfDay = "pm";
   }
-  return `Sunrise: ${hours}:${minutes}${timeOfDay}`;
+  return `${hours}:${minutes}${timeOfDay}`;
 }
 
 // update sunset time
@@ -106,7 +105,7 @@ function sunsetTime(timestamp) {
   } else {
     timeOfDay = "pm";
   }
-  return `Sunset: ${hours}:${minutes}${timeOfDay}`;
+  return `${hours}:${minutes}${timeOfDay}`;
 }
 
 let getForecast = (coordinates) => {
@@ -116,8 +115,7 @@ let getForecast = (coordinates) => {
 
 // update current weather info
 let displayCurrentTempInfo = (response) => {
-  // HTML elements that will update
-
+  let displayCity = document.querySelector("#city");
   let weatherIcon = document.querySelector("#weather-icon");
   let feelsLike = document.querySelector("#feels-like");
   let humidity = document.querySelector("#humidity");
@@ -130,29 +128,30 @@ let displayCurrentTempInfo = (response) => {
 
   celsiusTemp = Math.round(dataInfo.main.temp);
   temp.innerHTML = celsiusTemp;
-  feelsLike.innerHTML = dataInfo.main.feels_like;
 
-  humidity.innerHTML = dataInfo.main.humidity;
-  windSpeed.innerHTML = dataInfo.wind.speed;
-  description.innerHTML = dataInfo.weather[0].description;
+  displayCity.innerHTML = `${dataInfo.name}, ${dataInfo.sys.country}`;
   weatherIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${dataInfo.weather[0].icon}@2x.png`
   );
+  feelsLike.innerHTML = Math.round(dataInfo.main.feels_like) + `°C`;
+  humidity.innerHTML = dataInfo.main.humidity + `%`;
+  windSpeed.innerHTML = (dataInfo.wind.speed * 2.237).toFixed(1) + " mph";
+  description.innerHTML = dataInfo.weather[0].description;
+
   date.innerHTML = formatDate(dataInfo.dt * 1000);
   time.innerHTML = formatTime();
   sunrise.innerHTML = sunriseTime(dataInfo.sys.sunrise * 1000);
   sunset.innerHTML = sunsetTime(dataInfo.sys.sunset * 1000);
 
   getForecast(dataInfo.coord);
+
+  fahrenheit.classList.add("not-in-use");
+  celsius.classList.remove("not-in-use");
 };
 
 let searchLocation = (city) => {
-  // display the name of the city searched
-  let displayCity = document.querySelector("#city");
-  displayCity.innerHTML = city;
   // API details
-
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   // axios call
   axios.get(apiUrl).then(displayCurrentTempInfo);
@@ -185,10 +184,10 @@ function displayForecast(response) {
     <div class="col-2">
       <div class="card">
        <div class="row card-body">
-          <h5 class="col-6 col-md-3 col-lg-12 card-title">${formatDay(
+          <h5 class="col-6 col-md-3 col-lg-12 card-title day">${formatDay(
             forecastDay.dt * 1000
           )}</h5>
-          <h5 class="col-6 col-md-3 col-lg-12 card-title">${Math.round(
+          <h5 class="col-6 col-md-3 col-lg-12 card-title temp">${Math.round(
             forecastDay.temp.day
           )}°C</h5>
           <img
@@ -213,11 +212,15 @@ function displayF(event) {
   event.preventDefault();
   let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
   temp.innerHTML = Math.round(fahrenheitTemp);
+  fahrenheit.classList.remove("not-in-use");
+  celsius.classList.add("not-in-use");
 }
 
 function displayC(event) {
   event.preventDefault();
   temp.innerHTML = celsiusTemp;
+  fahrenheit.classList.add("not-in-use");
+  celsius.classList.remove("not-in-use");
 }
 
 // display fahrenheit temperature
@@ -232,4 +235,4 @@ celsius.addEventListener("click", displayC);
 let submitBtn = document.querySelector(".submit");
 submitBtn.addEventListener("click", getLocation);
 
-searchLocation("Nairobi");
+searchLocation("London");

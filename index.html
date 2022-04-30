@@ -16,7 +16,14 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cookie&family=Fira+Sans&family=Montserrat:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -25,7 +32,7 @@
         <div class="row">
           <div class="form-group">
             <div class="row justify-content-center">
-              <div class="col-md-4 col-sm-6 col-12">
+              <div class="col-md-4 col-sm-6 col-12 search-box">
                 <input
                   type="text"
                   class="form-control"
@@ -36,11 +43,6 @@
               <div class="col-1">
                 <button type="submit" class="btn btn-primary submit">
                   Search
-                </button>
-              </div>
-              <div class="col-1">
-                <button type="button" class="btn btn-secondary current">
-                  Current
                 </button>
               </div>
             </div>
@@ -54,15 +56,13 @@
             <h4 id="date">Thursday 30th March 2022</h4>
             <h4 id="time">14:00</h4>
             <div class="temperature">
-              <span>
-                <h1 id="current-temp">12</h1>
-              </span>
-              <span id="units">
-                <sup>
+              <span id="current-temp">12</span>
+              <sup>
+                <span id="units">
                   <a href="#" id="celsius">°C</a>
-                  <a href="#" id="fahrenheit">°F</a>
-                </sup>
-              </span>
+                  <a href="#" id="fahrenheit" class="not-in-use">°F</a>
+                </span>
+              </sup>
             </div>
 
             <h5 id="description">Scattered Clouds</h5>
@@ -75,11 +75,26 @@
 
           <div class="col nav-right">
             <ul class="additional-info">
-              <li id="feels-like">Feels Like: 10°C</li>
-              <li id="humidity">Humidity: 54%</li>
-              <li id="wind-speed">Wind Speed: 30 km/h</li>
-              <li id="sunrise">Sunrise: 6:00</li>
-              <li id="sunset">Sunset: 19:00</li>
+              <ul>
+                <li class="heading">Feels Like:</li>
+                <li id="feels-like">10°C</li>
+              </ul>
+              <ul>
+                <li class="heading">Humidity:</li>
+                <li id="humidity">54%</li>
+              </ul>
+              <ul>
+                <li class="heading">Wind Speed:</li>
+                <li id="wind-speed">30 km/h</li>
+              </ul>
+              <ul>
+                <li class="heading">Sunrise:</li>
+                <li id="sunrise">6:00</li>
+              </ul>
+              <ul>
+                <li class="heading">Sunset:</li>
+                <li id="sunset">19:00</li>
+              </ul>
             </ul>
           </div>
         </div>
@@ -89,8 +104,8 @@
           <div class="col-2">
             <div class="card">
               <div class="row card-body">
-                <h5 class="col-6 col-md-3 col-lg-12 card-title">Monday</h5>
-                <h5 class="col-6 col-md-3 col-lg-12 card-title">11°C</h5>
+                <h5 class="col-6 col-md-3 col-lg-12 card-title day">Monday</h5>
+                <h5 class="col-6 col-md-3 col-lg-12 card-title temp">11°C</h5>
                 <img
                   class="forecast-img"
                   src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
@@ -101,7 +116,12 @@
           </div>
         </div>
       </div>
-      <footer>Open source coded by Michelle Umolo</footer>
+      <footer>
+        <a href="https://github.com/miogum/weather-app" target="_blank"
+          >Open source coded</a
+        >
+        by Michelle Umolo
+      </footer>
     </div>
     <script src="/app.js"></script>
   </body>

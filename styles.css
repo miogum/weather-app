@@ -1,10 +1,11 @@
 * {
   padding: 0;
   margin: 0;
+  /* font-family: "Poppins", sans-serif; */
 }
 
 body {
-  background-image: url("background-image.jpg");
+  background-image: url("images/background-image.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -28,10 +29,6 @@ body {
   line-height: 4em;
   font-size: larger;
 }
-/* 
-.forecast {
-  width: max-content;
-} */
 
 .container-2 {
   padding: 0 5%;
@@ -39,6 +36,7 @@ body {
 
 .container-3 {
   padding: 0 10%;
+  margin-top: 7%;
 }
 
 h1 {
@@ -64,15 +62,16 @@ a {
   text-align: right;
 }
 
-#fahrenheit {
+.not-in-use {
   opacity: 50%;
 }
 
-#sun li {
-  display: inline;
+#description {
+  text-transform: capitalize;
+  font-size: 36px;
 }
 
-#description {
+#city {
   text-transform: capitalize;
 }
 
@@ -89,4 +88,44 @@ a {
 
 .forecast-img {
   width: 75%;
+}
+
+#current-temp {
+  font-size: 60px;
+  font-weight: 700;
+}
+
+ul {
+  list-style: none;
+  line-height: 30px;
+}
+
+.heading {
+  font-size: small;
+  font-weight: 300;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+#feels-like,
+#humidity,
+#wind-speed,
+#sunrise,
+#sunset,
+.temp {
+  font-weight: bolder;
+}
+
+/* .submit {
+  width: 50%;
+} */
+
+.day {
+  font-weight: 300;
+}
+
+#weather-icon {
+  height: 40%;
 }
