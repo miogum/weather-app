@@ -1,14 +1,6 @@
 let apiKey = "40d6bad2eff6e11cb44680c13dcdac2c";
 let temp = document.querySelector("#current-temp");
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let months = [
   "Jan",
   "Feb",
@@ -23,7 +15,7 @@ let months = [
   "Nov",
   "Dec",
 ];
-
+let searchInput = document.querySelector("#search-input");
 let celsiusTemp = null;
 
 // update current date
@@ -129,11 +121,12 @@ let displayCurrentTempInfo = (response) => {
   celsiusTemp = Math.round(dataInfo.main.temp);
   temp.innerHTML = celsiusTemp;
 
-  displayCity.innerHTML = `${dataInfo.name}, ${dataInfo.sys.country}`;
+  displayCity.innerHTML = `${dataInfo.name}`;
   weatherIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${dataInfo.weather[0].icon}@2x.png`
   );
+
   feelsLike.innerHTML = Math.round(dataInfo.main.feels_like) + `°C`;
   humidity.innerHTML = dataInfo.main.humidity + `%`;
   windSpeed.innerHTML = (dataInfo.wind.speed * 2.237).toFixed(1) + " mph";
@@ -159,7 +152,6 @@ let searchLocation = (city) => {
 
 function getLocation(event) {
   event.preventDefault();
-  let searchInput = document.querySelector("#search-input");
   searchLocation(searchInput.value);
 }
 
@@ -172,38 +164,35 @@ let formatDay = (timestamp) => {
 
 // display 5 day weather forecast
 function displayForecast(response) {
+  forecastCelsius = "hi";
   let dailyForecast = response.data.daily;
 
   let forecastElement = document.querySelector(".forecast");
 
-  let forecastHTML = `<div class="row text-center justify-content-center forecast">`;
+  let forecastHTML = ``;
 
   dailyForecast.forEach(function (forecastDay, index) {
     if (index < 6 && index > 0) {
       forecastHTML += `
-    <div class="col-2">
-      <div class="card">
-       <div class="row card-body">
-          <h5 class="col-6 col-md-3 col-lg-12 card-title day">${formatDay(
+    <div class="col-md-2 col-12"> 
+       <div class="row card-body justify-content-center align-content-center">
+          <h5 class="col-3 col-md-12 card-title mb-2 day align-self-center">${formatDay(
             forecastDay.dt * 1000
           )}</h5>
-          <h5 class="col-6 col-md-3 col-lg-12 card-title temp">${Math.round(
+          <h5 class="col-3 col-md-12 card-title temp align-self-center">${Math.round(
             forecastDay.temp.day
           )}°C</h5>
           <img
-            class="forecast-img"
+            class="forecast-img col-3 col-md-12"
             src="https://openweathermap.org/img/wn/${
               forecastDay.weather[0].icon
             }@2x.png"
             alt="sun"
           />
         </div>
-      </div>
     </div>`;
     }
   });
-
-  forecastHTML += `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
 
@@ -212,6 +201,8 @@ function displayF(event) {
   event.preventDefault();
   let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
   temp.innerHTML = Math.round(fahrenheitTemp);
+  console.log(forecastCelsius);
+  // toggle visibility of units
   fahrenheit.classList.remove("not-in-use");
   celsius.classList.add("not-in-use");
 }
@@ -219,6 +210,8 @@ function displayF(event) {
 function displayC(event) {
   event.preventDefault();
   temp.innerHTML = celsiusTemp;
+
+  // toggle visibility of units
   fahrenheit.classList.add("not-in-use");
   celsius.classList.remove("not-in-use");
 }
@@ -231,8 +224,13 @@ fahrenheit.addEventListener("click", displayF);
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", displayC);
 
-// cubmit and search for city
 let submitBtn = document.querySelector(".submit");
 submitBtn.addEventListener("click", getLocation);
+
+searchInput.addEventListener("keyup", function (e) {
+  if (e.keyCode === 13) {
+    submitBtn.click();
+  }
+});
 
 searchLocation("London");

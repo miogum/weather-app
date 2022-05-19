@@ -15,11 +15,10 @@ body {
 }
 
 .nav-left {
-  height: 50vh;
+  padding-top: 20px;
 }
 
 .nav-right {
-  height: 50vh;
   padding-top: 20px;
 }
 
@@ -36,19 +35,19 @@ body {
 
 .container-3 {
   padding: 0 10%;
-  margin-top: 7%;
 }
 
 h1 {
   font-weight: bolder;
-  font-size: 500%;
+  font-size: 400%;
 }
 
 footer {
+  margin: 2px auto 0 auto;
+  text-align: center;
   position: absolute;
   bottom: 0;
-  text-align: center;
-  left: 40%;
+  padding-top: 10px;
 }
 
 .card {
@@ -68,7 +67,7 @@ a {
 
 #description {
   text-transform: capitalize;
-  font-size: 36px;
+  font-size: large;
 }
 
 #city {
@@ -77,21 +76,23 @@ a {
 
 #units {
   opacity: 100%;
-  font-size: 42px;
+  font-size: 300%;
 }
 
 .card-body {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+  padding: 0;
 }
 
 .forecast-img {
-  width: 75%;
+  width: 80px;
+}
+
+#weather-icon {
+  width: 80px;
 }
 
 #current-temp {
-  font-size: 60px;
+  font-size: 400%;
   font-weight: 700;
 }
 
@@ -106,7 +107,7 @@ ul {
 }
 
 h4 {
-  font-size: 18px;
+  font-size: large;
 }
 
 #feels-like,
@@ -118,14 +119,6 @@ h4 {
   font-weight: bolder;
 }
 
-/* .submit {
-  width: 50%;
-} */
-
 .day {
   font-weight: 300;
-}
-
-#weather-icon {
-  height: 40%;
 }
