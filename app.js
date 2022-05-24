@@ -60,45 +60,45 @@ let formatTime = () => {
   return `${hours}:${minutes}${timeOfDay}`;
 };
 
-// update sunrise time
-function sunriseTime(timestamp) {
-  let sunriseTime = new Date(timestamp);
-  let hours = sunriseTime.getHours();
-  let minutes = sunriseTime.getMinutes();
-  let timeOfDay = "";
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  if (hours < 12) {
-    timeOfDay = "am";
-  } else {
-    timeOfDay = "pm";
-  }
-  return `${hours}:${minutes}${timeOfDay}`;
-}
+// // update sunrise time
+// function sunriseTime(timestamp) {
+//   let sunriseTime = new Date(timestamp);
+//   let hours = sunriseTime.getHours();
+//   let minutes = sunriseTime.getMinutes();
+//   let timeOfDay = "";
+//   if (minutes < 10) {
+//     minutes = `0${minutes}`;
+//   }
+//   if (hours < 10) {
+//     hours = `0${hours}`;
+//   }
+//   if (hours < 12) {
+//     timeOfDay = "am";
+//   } else {
+//     timeOfDay = "pm";
+//   }
+//   return `${hours}:${minutes}${timeOfDay}`;
+// }
 
-// update sunset time
-function sunsetTime(timestamp) {
-  let sunsetTime = new Date(timestamp);
-  let hours = sunsetTime.getHours();
-  let minutes = sunsetTime.getMinutes();
-  let timeOfDay = "";
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  if (hours < 12) {
-    timeOfDay = "am";
-  } else {
-    timeOfDay = "pm";
-  }
-  return `${hours}:${minutes}${timeOfDay}`;
-}
+// // update sunset time
+// function sunsetTime(timestamp) {
+//   let sunsetTime = new Date(timestamp);
+//   let hours = sunsetTime.getHours();
+//   let minutes = sunsetTime.getMinutes();
+//   let timeOfDay = "";
+//   if (minutes < 10) {
+//     minutes = `0${minutes}`;
+//   }
+//   if (hours < 10) {
+//     hours = `0${hours}`;
+//   }
+//   if (hours < 12) {
+//     timeOfDay = "am";
+//   } else {
+//     timeOfDay = "pm";
+//   }
+//   return `${hours}:${minutes}${timeOfDay}`;
+// }
 
 let getForecast = (coordinates) => {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
@@ -109,33 +109,30 @@ let getForecast = (coordinates) => {
 let displayCurrentTempInfo = (response) => {
   let displayCity = document.querySelector("#city");
   let weatherIcon = document.querySelector("#weather-icon");
-  let feelsLike = document.querySelector("#feels-like");
   let humidity = document.querySelector("#humidity");
   let windSpeed = document.querySelector("#wind-speed");
   let description = document.querySelector("#description");
-  let sunrise = document.querySelector("#sunrise");
-  let sunset = document.querySelector("#sunset");
+  let mintemp = document.querySelector("#mintemp");
+  let maxtemp = document.querySelector("#maxtemp");
 
   let dataInfo = response.data;
-
   celsiusTemp = Math.round(dataInfo.main.temp);
   temp.innerHTML = celsiusTemp;
-
+  console.log(dataInfo);
   displayCity.innerHTML = `${dataInfo.name}`;
   weatherIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${dataInfo.weather[0].icon}@2x.png`
   );
 
-  feelsLike.innerHTML = Math.round(dataInfo.main.feels_like) + `°C`;
   humidity.innerHTML = dataInfo.main.humidity + `%`;
   windSpeed.innerHTML = (dataInfo.wind.speed * 2.237).toFixed(1) + " mph";
   description.innerHTML = dataInfo.weather[0].description;
-
+  console.log(dataInfo);
   date.innerHTML = formatDate(dataInfo.dt * 1000);
   time.innerHTML = formatTime();
-  sunrise.innerHTML = sunriseTime(dataInfo.sys.sunrise * 1000);
-  sunset.innerHTML = sunsetTime(dataInfo.sys.sunset * 1000);
+  mintemp.innerHTML = Math.round(dataInfo.main.temp_min) + `°C`;
+  maxtemp.innerHTML = Math.round(dataInfo.main.temp_max) + `°C`;
 
   getForecast(dataInfo.coord);
 
@@ -166,7 +163,6 @@ let formatDay = (timestamp) => {
 function displayForecast(response) {
   forecastCelsius = "hi";
   let dailyForecast = response.data.daily;
-
   let forecastElement = document.querySelector(".forecast");
 
   let forecastHTML = ``;

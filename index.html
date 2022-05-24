@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid h-100">
       <div class="container-1 p-4">
         <div class="row">
           <div class="form-group">
@@ -73,12 +73,8 @@
             />
           </div>
 
-          <div class="col-6 nav-right">
+          <div class="col-6 nav-right align-self-center">
             <ul class="additional-info">
-              <ul>
-                <li class="heading">Feels Like:</li>
-                <li id="feels-like">10°C</li>
-              </ul>
               <ul>
                 <li class="heading">Humidity:</li>
                 <li id="humidity">54%</li>
@@ -88,18 +84,20 @@
                 <li id="wind-speed">30 km/h</li>
               </ul>
               <ul>
-                <li class="heading">Sunrise:</li>
-                <li id="sunrise">6:00</li>
+                <li class="heading">Min Temp:</li>
+                <li id="mintemp">12°C</li>
               </ul>
               <ul>
-                <li class="heading">Sunset:</li>
-                <li id="sunset">19:00</li>
+                <li class="heading">Max Temp:</li>
+                <li id="maxtemp">12°C</li>
               </ul>
             </ul>
           </div>
         </div>
       </div>
-      <div class="container-3 row text-center justify-content-center forecast">
+      <div
+        class="container-3 h-100 row text-center justify-content-center forecast align-items-end"
+      >
         <div class="col-2">
           <div class="card">
             <div class="row card-body">
@@ -117,7 +115,7 @@
       <div class="row">
         <footer class="col-12">
           <a href="https://github.com/miogum/weather-app" target="_blank"
-            >Open source coded</a
+            ><strong>Open source code</strong></a
           >
           by Michelle Umolo
         </footer>
